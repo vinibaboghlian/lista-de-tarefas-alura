@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Rotina - Lista de Tarefas</title>
+
+  <!-- Fonte Google: Inter para visual limpo e moderno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Folha de Estilos Principal -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Cabeçalho -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="title-group">
+          <div class="logo-badge">
+            <i data-lucide="check-check"></i>
+          </div>
+          <div>
+            <h1 class="app-title">Aplicação Web de Lista de Tarefas (To-Do List)</h1>
+            <p class="app-subtitle">Organize suas tarefas e acompanhe seu progresso.</p>
+          </div>
+        </div>
+        <div class="date-badge" id="current-date-badge" aria-label="Data atual">
+          <i data-lucide="calendar"></i>
+          <span id="current-date-text">Hoje</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Painel de Resumo / Métricas -->
+    <section class="stats-grid" aria-label="Resumo das tarefas">
+      <div class="stat-card">
+        <div class="stat-icon total">
+          <i data-lucide="list-todo"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Total de tarefas</span>
+          <strong class="stat-value" id="stat-total">0</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon pending">
+          <i data-lucide="clock"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Tarefas pendentes</span>
+          <strong class="stat-value" id="stat-pending">0</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon completed">
+          <i data-lucide="check-circle-2"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Tarefas concluídas</span>
+          <strong class="stat-value" id="stat-completed">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Área de Cadastro de Nova Tarefa -->
+    <section class="card input-card" aria-label="Cadastrar nova tarefa">
+      <form id="todo-form" class="todo-form" autocomplete="off">
+        <div class="input-wrapper">
+          <i data-lucide="plus-circle" class="input-icon"></i>
+          <input type="text" id="todo-input" class="todo-input" placeholder="O que você precisa fazer hoje?"
+            aria-label="Descrição da nova tarefa" maxlength="200">
+        </div>
+        <button type="submit" id="add-btn" class="btn btn-primary">
+          <i data-lucide="plus"></i>
+          <span>Adicionar tarefa</span>
+        </button>
+      </form>
+      <p id="input-error-msg" class="error-msg" role="alert" aria-live="polite" hidden>
+        Por favor, digite o nome da tarefa antes de adicionar.
+      </p>
+    </section>
+
+    <!-- Seção da Lista de Tarefas e Filtros -->
+    <main class="card main-card">
+      <div class="list-header">
+        <div class="list-title-wrap">
+          <h2 class="list-title">Suas Tarefas</h2>
+          <span class="items-count" id="filtered-count">0 itens</span>
+        </div>
+
+        <!-- Barra de Filtros -->
+        <nav class="filter-group" aria-label="Filtrar tarefas">
+          <button type="button" class="filter-btn active" data-filter="all">
+            Todas
+          </button>
+          <button type="button" class="filter-btn" data-filter="pending">
+            Pendentes
+          </button>
+          <button type="button" class="filter-btn" data-filter="completed">
+            Concluídas
+          </button>
+        </nav>
+      </div>
+
+      <!-- Lista Dinâmica de Tarefas -->
+      <ul id="todo-list" class="todo-list" aria-label="Lista de afazeres">
+        <!-- Itens inseridos dinamicamente via JavaScript -->
+      </ul>
+
+      <!-- Estado Vazio -->
+      <div id="empty-state" class="empty-state" hidden>
+        <div class="empty-icon-wrap">
+          <i data-lucide="sparkles"></i>
+        </div>
+        <h3 class="empty-title" id="empty-title">Tudo organizado por aqui!</h3>
+        <p class="empty-desc" id="empty-desc">Adicione sua primeira tarefa para começar a planejar seu dia.</p>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="app-footer">
+      <p>Minha Rotina &bull; Desenvolvido com HTML, CSS e JavaScript puro</p>
+    </footer>
+  </div>
+
+  <!-- Toast de Notificação e Opção de Desfazer (Undo) -->
+  <aside id="toast" class="toast" role="status" aria-live="polite" hidden>
+    <div class="toast-content">
+      <i data-lucide="info" id="toast-icon"></i>
+      <span id="toast-message">Tarefa excluída</span>
+    </div>
+    <button type="button" id="toast-undo-btn" class="toast-undo-btn">Desfazer</button>
+  </aside>
+
+  <!-- Script da Aplicação -->
+  <script src="js/app.js"></script>
+</body>
+
+</html>
